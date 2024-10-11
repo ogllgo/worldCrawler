@@ -13,9 +13,11 @@ if ! git show-ref --quiet refs/heads/"$branch"; then
 fi
 
 echo "Pulling from ${branch}"
+echo ""
 git pull -q origin "$branch" || { echo "Failed to pull from $branch"; exit 1; }
 
 echo "Adding . to a new commit called ${commit_name}"
+echo ""
 git add .
 
 # if there are no changes, why push
@@ -25,6 +27,7 @@ if git diff --cached --quiet; then
 fi
 
 echo "Pushing commit with name \"${commit_name}\""
+echo ""
 git commit -q -m "$commit_name"
 
 echo "Pushing commit \"${commit_name}\" to branch \"${branch}\""
