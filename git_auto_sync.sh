@@ -13,7 +13,7 @@ if ! git show-ref --quiet refs/heads/"$branch"; then
 fi
 
 echo "Pulling from ${branch}"
-git pull origin "$branch" || { echo "Failed to pull from $branch"; exit 1; }
+git pull -q origin "$branch" || { echo "Failed to pull from $branch"; exit 1; }
 
 echo "Adding . to a new commit"
 git add .
