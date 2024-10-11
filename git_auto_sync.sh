@@ -15,7 +15,7 @@ fi
 echo "Pulling from ${branch}"
 git pull -q origin "$branch" || { echo "Failed to pull from $branch"; exit 1; }
 
-echo "Adding . to a new commit"
+echo "Adding . to a new commit called ${commit_name}"
 git add .
 
 # if there are no changes, why push
@@ -25,7 +25,7 @@ if git diff --cached --quiet; then
 fi
 
 echo "Pushing commit with name \"${commit_name}\""
-git commit -m "$commit_name"
+git commit -q -m "$commit_name"
 
 echo "Pushing commit \"${commit_name}\" to branch \"${branch}\""
-git push origin "$branch"
+git push -q origin "$branch"
