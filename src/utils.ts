@@ -1,4 +1,3 @@
-import { Creature } from "./assets/creatures.js";
 import * as constants from "./constants.js";
 import { Chunk, genWorld, chunkSize } from "./worldgen.js";
 export function getTerminalWidth(): number {
@@ -97,16 +96,15 @@ export class Projectile extends Square {
 /**
  * This is, essentially, an interface for Chunk[].
  */
-export class Land {
-    land: Chunk[];
-    constructor() {
-        this.land = genWorld();
-    }
+export class World {
+    land: Chunk[] = genWorld();
+    width: number = (Math.floor(getTerminalWidth() / chunkSize) + 1);
+    
     get(chunkX: number, chunkY: number): Chunk {
-        return this.land[chunkY * (Math.floor(getTerminalWidth() / chunkSize) + 1) + chunkX];
+        return this.land[chunkY * this.width + chunkX];
     }
     set(chunkX: number, chunkY: number, chunk: Chunk): void {
-        this.land[chunkY * (Math.floor(getTerminalWidth() / chunkSize) + 1) + chunkX] = chunk;
+        this.land[chunkY * this.width + chunkX] = chunk;
     }
     print(doColour: boolean = true): void {
         for (let tileY = 0; tileY < getTerminalHeight(); tileY++) {
@@ -121,13 +119,5 @@ export class Land {
                 square.print(doColour);
             }
         }
-    }
-}
-
-export class World {
-    land: Land = new Land();
-    creatures: Creature[];
-    constructor(creatures: Creature[]) {
-        this.creatures = creatures;
     }
 }

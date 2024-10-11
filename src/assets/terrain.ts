@@ -1,4 +1,4 @@
-// This file will have all the terrain types in the game.
+// this file exports all the lands
 import { Square, Colour } from "../utils.js";
 import { Tile } from "./objects.js";
 
@@ -24,4 +24,10 @@ export const Mountains = new Tile(
     0, // impassable
     "▒", 
     new Colour(61, 60, 59)
+);
+
+export const None = new Tile(
+    0, // defaukt
+    " ", // default
+    new Colour(0, 0, 0) // default
 );
