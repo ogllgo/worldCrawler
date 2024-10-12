@@ -1,6 +1,6 @@
 #!/bin/bash
 
-commit_name="$(hostname): auto-sync-$(date +'%Y-%m-%d %H:%M:%S')"
+commit_name="$(hostname): $(date +'%Y-%m-%d %H:%M:%S')"
 branch="main"
 
 # fetch updates
@@ -32,3 +32,5 @@ git commit -q -m "$commit_name"
 echo ""
 echo "Pushing commit \"${commit_name}\" to branch \"${branch}\""
 git push -q origin "$branch"
+
+
