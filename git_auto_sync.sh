@@ -32,5 +32,3 @@ git commit -q -m "$commit_name"
 echo ""
 echo "Pushing commit \"${commit_name}\" to branch \"${branch}\""
 git push -q origin "$branch"
-
-
