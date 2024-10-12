@@ -9,7 +9,7 @@ class Player extends utils.Square {
 };
 
 async function main() {
-    let world: World = new World();
+    let world: utils.World = new utils.World();
     console.clear();
     world.print();
     process.stdout.write(constants.ColourCodes.reset);

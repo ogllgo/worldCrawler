@@ -1,11 +1,11 @@
 import { getTerminalHeight, getTerminalWidth } from "./utils.js";
 import * as Noise from "./noise.js";
 import * as Terrain from "./assets/terrain.js";
-import { GameObject, Tile } from "./assets/objects.js";
+import { Creature, GameObject, Tile } from "./assets/objects.js";
 
 export const chunkSize = 3;
 export class Chunk {
-    land: GameObject[][];
+    land: (Tile | Creature)[][];
     chunkX: number;
     chunkY: number;
     constructor(noise: Noise.Perlin, chunkX: number, chunkY: number) {
@@ -20,8 +20,11 @@ export class Chunk {
             }
         }
     }
-    get(x: number, y: number): Tile {
+    get(x: number, y: number): (Tile | Creature) {
         return this.land[y][x];
+    }
+    set(x: number, y: number, object: (Tile | Creature)): void {
+        this.land[y][x] = object;
     }
 }
 

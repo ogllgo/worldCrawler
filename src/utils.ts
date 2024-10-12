@@ -1,3 +1,4 @@
+import { Creature, GameObject, Tile } from "./assets/objects.js";
 import * as constants from "./constants.js";
 import { Chunk, genWorld, chunkSize } from "./worldgen.js";
 export function getTerminalWidth(): number {
@@ -100,11 +101,46 @@ export class World {
     land: Chunk[] = genWorld();
     width: number = (Math.floor(getTerminalWidth() / chunkSize) + 1);
     
-    get(chunkX: number, chunkY: number): Chunk {
+    /**
+     * Get a chunk at the given X and Y position
+     * @param chunkX The X position of the chunk
+     * @param chunkY The Y position of the chunk
+     * @returns The chunk at the X and Y
+     */
+    getChunk(chunkX: number, chunkY: number): Chunk {
         return this.land[chunkY * this.width + chunkX];
     }
-    set(chunkX: number, chunkY: number, chunk: Chunk): void {
+
+    /**
+     * Set a given chunk at the given X and Y position
+     * @param chunkX The X position of the chunk
+     * @param chunkY The Y position of the chunk
+     * @param chunk The new chunk
+     */
+    setChunk(chunkX: number, chunkY: number, chunk: Chunk): void {
         this.land[chunkY * this.width + chunkX] = chunk;
+    }
+    
+    /**
+     * Get a tile in the world by the global X and Y position
+     * @param globalX The global X position of the object relative to the top-left
+     * @param globalY The global Y position of the object relative to the top-left
+     * @returns the GameObject at the X and Y
+     */
+    getSquare(globalX: number, globalY: number): (Tile | Creature) {
+        const chunk = this.land[Math.floor(globalY / chunkSize) * this.width + Math.floor(globalX / chunkSize)];
+        return chunk.get(globalX % chunkSize, globalY % chunkSize);
+    }
+
+    /**
+     * Set a tile in the world by the global X and Y position
+     * @param globalX The global X position of the object relative to the top-left
+     * @param globalY The global Y position of the object relative to the top-left
+     * @param object The new object
+     */
+    setSquare(globalX: number, globalY: number, object: (Tile | Creature)): void {
+        const chunk = this.land[Math.floor(globalY / chunkSize) * this.width + Math.floor(globalX / chunkSize)];
+        chunk.set(globalX % chunkSize, globalY % chunkSize, object);
     }
     print(doColour: boolean = true): void {
         for (let tileY = 0; tileY < getTerminalHeight(); tileY++) {
@@ -112,7 +148,7 @@ export class World {
                 const chunkX = Math.floor(tileX / chunkSize);
                 const chunkY = Math.floor(tileY / chunkSize);
 
-                const chunk = this.get(chunkX, chunkY);
+                const chunk = this.getChunk(chunkX, chunkY);
                 const localTileX = tileX % chunkSize;
                 const localTileY = tileY % chunkSize;
                 const square = chunk.get(localTileX, localTileY);
