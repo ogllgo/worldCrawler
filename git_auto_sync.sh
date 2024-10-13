@@ -11,6 +11,7 @@ if ! git show-ref --quiet refs/heads/"$branch"; then
     echo "Branch $branch does not exist."
     exit 1
 fi
+clear
 echo "Pulling from ${branch}"
 git pull -q origin "$branch" || { echo "Failed to pull from $branch"; exit 1; }
 
