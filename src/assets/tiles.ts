@@ -1,6 +1,6 @@
 // this file exports all the lands
-import { Square, Colour } from "../utils.js";
-import { Tile } from "./objects.js";
+import { Colour } from "../classes/assorted.js";
+import Tile from "../classes/Tile.js";
 
 export const Grass = new Tile(
     3,
@@ -30,12 +30,12 @@ export const Rocks = new Tile(
 );
 
 export const Mountains = new Tile(
-    0, // impassable
+    0,
     "▒", 
     new Colour(61, 60, 59),
     "Mountains",
-    "Tall, impassable mountains.",
-    5 // if they do get on here, they get a boost
+    "Tall, impassable mountains.\nImpossible to walk on, but you do see far from that high up.",
+    5
 );
 
 export const None = new Tile(

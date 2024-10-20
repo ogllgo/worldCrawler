@@ -15,7 +15,7 @@ export class Perlin {
         seed = hashSingle(seed);
         for (let i = 0; i < 256; i++) {
             seed = hashSingle(seed);
-            this.p[i] = Math.floor(seed * 256);
+            this.p[i] = i;
         }
         // Duplicate the permutation array to avoid overflows when indexing over 255
         this.perm = [...this.p, ...this.p];
